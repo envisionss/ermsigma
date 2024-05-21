@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License Key Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(25, 25, 25);
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            border-radius: 20px;
+            margin: 10px;
+            font-size: 16px;
+            background-color: rgb(35, 35, 35);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 12px;
+            border: 2px solid rgb(12, 12, 12);
+            width: 400px; /* Increased width */
+            text-align: center;
+            background-color: transparent;
+            color: #fff;
+            font-size: 16px;
+            pointer-events: none; /* Disable typing */
+        }
+
+        #copyBtn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            margin-left: 10px;
+            font-size: 16px;
+            background-color: rgb(35, 35, 35);
+            border: none;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        #copyBtn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons">
+        <button id="sevenDayBtn" onclick="generateLicense(7)">7day</button>
+        <button id="thirtyDayBtn" onclick="generateLicense(30)">30day</button>
+        <button id="hundredDayBtn" onclick="generateLicense(100)">100day</button>
+    </div>
+    <div class="input-container">
+        <input type="text" id="licenseKey" placeholder="Generated License Key" readonly>
+        <button id="copyBtn" onclick="copyKey()">Copy Key</button>
+    </div>
+    
+    <script>
+        function generateRandomKey(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        function generateLicense(days) {
+            const licenseKey = generateRandomKey(10); // Adjust key length as needed
+            document.getElementById('licenseKey').value = licenseKey;
+        }
+
+        function copyKey() {
+            const licenseKey = document.getElementById('licenseKey');
+            licenseKey.select();
+            licenseKey.setSelectionRange(0, 99999); // For mobile devices
+
+            document.execCommand("copy");
+
+            // Optional: Alert the copied key
+            alert("Copied the key: " + licenseKey.value);
+        }
+    </script>
+</body>
+</html>
